@@ -6,3 +6,4 @@ Aplicación Pasaportes
 * Clone this project to your local storage.
 * Use the terminal and inside the folder execute npm install (install all dependencies).
 * Execute npm run serverstart.
+* In your browser go to http://localhost:3000
