@@ -1,0 +1,28 @@
+extends layout
+
+block content
+
+    h1 #{title}
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='nombre') Nombre:
+            input#nombre.form-control(type='text', placeholder='Hugo' name='nombre' value=(undefined===solicitud ? '' : solicitud.nombre))
+            label(for='apellido') Apellido:
+            input#apellido.form-control(type='text', placeholder='Ventura' name='apellido' value=(undefined===solicitud ? '' : solicitud.apellido))
+            label(for='ciudad') Ciudad:
+            input#ciudad.form-control(type='text', placeholder='NY' name='ciudad' value=(undefined===solicitud ? '' : solicitud.ciudad))
+            label(for='solicitud') Solicitud:
+            input#solicitud.form-control(type='text', placeholder='25' name='solicitud' value=(undefined===solicitud ? '' : solicitud.solicitud))
+            label(for='pasaporte') Pasaporte:
+            input#pasaporte.form-control(type='text', placeholder='RD545655' name='pasaporte' value=(undefined===solicitud ? '' : solicitud.pasaporte))
+            label(for='fecha_nac') Fecha Nacimiento:
+            input#fecha_nac.form-control(type='date', placeholder='Ventura' name='fecha_nac' value=(undefined===solicitud ? '' : solicitud.fecha_nac))
+            label(for='ciudad_nac') Ciudad de Nacimiento:
+            input#ciudad_nac.form-control(type='text', placeholder='Ventura' name='ciudad_nac' value=(undefined===solicitud ? '' : solicitud.ciudad_nac))
+        button.btn.btn-primaty(type='submit') Submit
+
+        if errors
+            ul
+                for error in errors
+                    li!=error.msg

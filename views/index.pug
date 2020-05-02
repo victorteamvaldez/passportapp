@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}, the first page of hour project to the Dominican Goverment.
+  
+  h1 Dynamic content
+
+  if error
+    p Error getting dynamic content.
+    p=error
+  else
+    p The ammount of request is presented below:
+
+    ul
+      li #[strong Petitions:] !{data.solicitud_count}
