@@ -20,7 +20,7 @@ block content
             input#fecha_nac.form-control(type='date', placeholder='Ventura' name='fecha_nac' value=(undefined===solicitud ? '' : solicitud.fecha_nac))
             label(for='ciudad_nac') Ciudad de Nacimiento:
             input#ciudad_nac.form-control(type='text', placeholder='Ventura' name='ciudad_nac' value=(undefined===solicitud ? '' : solicitud.ciudad_nac))
-        button.btn.btn-primaty(type='submit') Submit
+        button.btn.btn-primary(type='submit') Submit
 
         if errors
             ul

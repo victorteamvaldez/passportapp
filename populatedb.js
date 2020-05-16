@@ -24,13 +24,13 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var solicitudes = []
 
-function solicitudCreate(nombre, apellido, fecha, ciudad, solicitud_num, fecha_nac, ciudad_nac, pasaporte, cb) {
+function solicitudCreate(name, last_name, application_date, birth_date, cb) {
   //authordetail = {first_name:first_name , family_name: family_name }
-  detalle = {nombre: nombre, apellido: apellido, ciudad:ciudad, solicitud:solicitud_num, ciudad_nac:ciudad_nac, pasaporte: pasaporte}
+  detalle = {name: name, last_name: last_name, application_date:application_date, birth_date:birth_date}
   //if (d_birth != false) authordetail.date_of_birth = d_birth
   //if (d_death != false) authordetail.date_of_death = d_death
-  if (fecha != false) detalle.fecha = fecha
-  if (fecha_nac != false) detalle.fecha_nac =fecha_nac
+  if (application_date != false) detalle.application_date = application_date
+  if (birth_date != false) detalle.birth_date = birth_date
 
   var solicitud = new Solicitud(detalle);
        
@@ -50,7 +50,7 @@ function solicitudCreate(nombre, apellido, fecha, ciudad, solicitud_num, fecha_n
 function createSolicitudes(cb) {
     async.series([
         function(callback) {
-          solicitudCreate('Lucas', 'Romano', '2020-04-19','New York', 546, '1973-06-05','La Vega', 'RD58654', callback);
+          solicitudCreate('Enamnuel', 'Rocio', '2020-05-11','1990-05-02', callback);
         }],
         // optional callback
         cb);

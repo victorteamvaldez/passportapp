@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1=title
+    ul
+        each reason in reason_list
+            li=reason.name
+        else 
+            li There aren't reasons defined.
+    a.btn.btn-primary(href="/reason/create") Create Reason

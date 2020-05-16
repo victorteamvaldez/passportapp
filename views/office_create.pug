@@ -1,0 +1,16 @@
+extends layout
+
+block content
+
+        h1=title
+
+        form(method='POST' action='')
+            div.form-group
+                label(for="name") City Office Name:
+                input#name.form-control(type='text', placeholder="New York", name='name', value=(undefined===office ? '' : office.name))
+            button.btn.btn-primary(type='submit') Create Office
+
+        if errors
+            ul
+                for error in errors
+                    li!=error.msg

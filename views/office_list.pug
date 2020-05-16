@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1=title
+    ul
+        each req in office_list
+            li=req.name
+        else 
+            li There aren't offices defined.
+    a.btn.btn-primary(href="/office/create") Create Office
