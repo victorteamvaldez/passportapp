@@ -1,4 +1,6 @@
 var Solicitud = require('../models/solicitud');
+var Office = require('../models/office');
+var Reason = require('../models/reason');
 const validator = require('express-validator');
 
 var async = require('async');
@@ -34,59 +36,84 @@ exports.peticion_detail = function(req, res){
 };
 
 exports.peticion_create_get = function(req, res){
-    res.render('catalog_create',{title: 'Create Petition'});
+    async.parallel({
+        offices: function(callback){
+            Office.find(callback);
+        },
+        reasons: function(callback){
+            Reason.find(callback);
+        },
+    }, function(err, results){
+        if(err){return next(err);}
+        res.render('catalog_create',{title: 'Create a Request', offices: results.offices, reasons: results.reasons});
+    });
+    
 }
 
 exports.peticion_create_post =[
-    validator.body('nombre','Nombre is required').trim().isLength({min: 1}),
-    validator.body('apellido','Apellido is required').trim().isLength({min: 1}),
-    validator.body('ciudad','Ciudad is required').trim().isLength({min: 1}),
-    validator.body('solicitud','Colicitud is required').trim().isLength({min: 1}),
-    validator.body('ciudad_nac','Ciudad de Nac is required').trim().isLength({min: 1}),
-    validator.body('pasaporte','Pasaporte is required').trim().isLength({min: 1}),
-    validator.body('fecha_nac', 'Fecha Nac is Required'),
-    validator.sanitizeBody('nombre').escape(),
-    validator.sanitizeBody('apellido').escape(),
-    validator.sanitizeBody('ciudad').escape(),
-    validator.sanitizeBody('solicitud').escape(),
-    validator.sanitizeBody('ciudad_nac').escape(),
-    validator.sanitizeBody('pasaporte').escape(),
-    validator.sanitizeBody('fecha_nac').toDate(),
+    validator.body('name','Name is required').trim().isLength({min: 1}),
+    validator.body('last_name','Lastname is required').trim().isLength({min: 1}),
+    validator.body('cedula','Cedula is required').trim().isLength({min: 11}),
+    validator.body('place_birth','Place of Birth is required').trim().isLength({min: 1}),
+    validator.body('telephone','Telephone is required').trim().isLength({min: 1}),
+    validator.body('address','Address is required').trim().isLength({min: 1}),
+    validator.body('city','City is required').trim().isLength({min: 1}),
+    validator.body('state','State is required').trim().isLength({min: 1}),
+    validator.body('zip_code','Zip code is required').trim().isLength({min: 1}),
+    validator.sanitizeBody('*').escape(),
 
     (req, res, next)=>{
         const errors = validator.validationResult(req);
 
-        var sol = new Solicitud(
+        var request = new Solicitud(
             {
-                nombre: req.body.nombre,
-                apellido: req.body.apellido,
-                ciudad: req.body.ciudad,
-                solicitud: req.body.solicitud,
-                ciudad_nac: req.body.ciudad_nac,
+                name: req.body.name,
+                last_name: req.body.last_name,
+                cedula: req.body.cedula,
+                birth_date: req.body.birth_date,
+                place_birth: req.body.place_birth,
                 pasaporte: req.body.pasaporte,
-                fecha_nac: req.body.fecha_nac 
+                telephone: req.body.telephone,
+                address: req.body.address,
+                city: req.body.city,
+                state: req.body.state,
+                zip_code: req.body.zip_code,
+                last_passport: req.body.last_passport,
+                passport_book: req.body.passport_book,
+                last_passport_date: req.body.last_passport_date,
+                picture_provided: req.body.picture_provided,
+                cedula_provided: req.body.cedula_provided,
+                birth_certificate_provided: req.body.birth_certificate_provided,
+                last_passport_provided: req.body.last_passport_provided,
+                request_type: req.body.request_type,
+                status: req.body.status,
+                description: req.body.description,
+                office: req.body.office,
+                reason: req.body.reason
+
             }
-        );
+        )
 
         if(!errors.isEmpty()){
-            res.render('catalog_create', {title: 'Create Solicitud', solicitud: sol, errors: errors.array()});
+            
+            async.parallel({
+                offices: function(callback){
+                    Office.find(callback);
+                },
+                reasons: function(callback){
+                    Reason.find(callback);
+                },
+            }, function(err, results){
+                if(err) {return next(err);}
+                res.render('catalog_create', {title: 'Create a Request', request: request, offices: results.offices, reasons: results.reasons, errors: errors.array()});
+            });
             return;
         }
         else {
-            Solicitud.findOne({'nombre': req.body.nombre})
-                .exec(function(err, found_solicitud){
-                    if(err) {return next(err);}
-
-                    if(found_solicitud){
-                        res.redirect(found_solicitud.url);
-                    }else {
-                        sol.save(function(err){
-                            if(err) {return next(err);}
-
-                            res.redirect(sol.url)
-                        });
-                    }
-                });
+            request.save(function(err){
+                if(err){return next(err);}
+                res.redirect(request.url);
+            })
         }
     },
 ];
