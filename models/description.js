@@ -9,4 +9,4 @@ var DescriptionSchema = new Schema({
     solicitud: {type: Schema.Types.ObjectId, ref: 'Solicitud', required: true}
 })
 
-module.exports = mongoose.model('DescriptionModel', DescriptionSchema);
+module.exports = mongoose.model('Description', DescriptionSchema);

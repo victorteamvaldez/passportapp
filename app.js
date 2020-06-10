@@ -4,15 +4,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var mongoose = require('mongoose');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var catalogRouter =   require('./routes/catalog');
 var officeRouter = require('./routes/office');
 var reasonRouter = require('./routes/reason');
 
-var mongoose = require('mongoose');
-
 var app = express();
+
+//Set up the DB
+
+var mongoDB = 'mongodb+srv://admin:consuladoadmin@cluster0-n2iot.mongodb.net/test?retryWrites=true&w=majority'
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,12 +53,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-  //Set up the DB
 
-var mongoDB = 'mongodb+srv://admin:consuladoadmin@cluster0-n2iot.mongodb.net/test?retryWrites=true&w=majority'
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 
 
 module.exports = app;

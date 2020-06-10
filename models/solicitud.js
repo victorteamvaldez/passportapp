@@ -19,7 +19,7 @@ var SolicitudSchema = new Schema({
     passport_book: String,
     last_passport_date: {type: Date},
     //Booleans to check forms
-    picture_provided: Boolean,
+    picture_rovided: Boolean,
     cedula_provided: Boolean,
     birth_certificate_provided: Boolean,
     last_passport_provided: Boolean,
@@ -33,13 +33,13 @@ var SolicitudSchema = new Schema({
 });
 
 SolicitudSchema.
-    virtual('nombre_completo')
+    virtual('full_name')
     .get(function(){
         var fullname = '';
-        if (this.nombre && this.apellido){
-            fullname = this.nombre +' '+ this.apellido;
+        if (this.name && this.last_name){
+            fullname = this.name +' '+ this.last_name;
         }
-        if (!this.nombre || !this.apellido){
+        if (!this.name || !this.last_name){
             fullname = '';
         }
 
@@ -47,9 +47,9 @@ SolicitudSchema.
     })
 
 SolicitudSchema.
-    virtual('fecha_cute').
+    virtual('cute_date').
     get(function (){
-        return moment(this.fecha).format('MMMM Do YYYY, h:mm:ss a')
+        return moment(this.fecha).format('MMMM Do YYYY')
         }
     )
 
@@ -61,4 +61,4 @@ SolicitudSchema.
         }
     )
 
-module.exports = mongoose.model('SolicitudModel', SolicitudSchema);
+module.exports = mongoose.model('Request', SolicitudSchema);

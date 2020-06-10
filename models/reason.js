@@ -7,4 +7,4 @@ var ReasonSchema = new Schema({
     name: {type: String, required: true}
 });
 
-module.exports = mongoose.model('ReasonModel', ReasonSchema);
+module.exports = mongoose.model('Reason', ReasonSchema);

@@ -7,4 +7,4 @@ var OfficeSchema = new Schema({
     name: {type: String, required: true}
 });
 
-module.exports = mongoose.model('OfficeModel', OfficeSchema);
+module.exports = mongoose.model('Office', OfficeSchema);

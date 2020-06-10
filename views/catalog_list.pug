@@ -1,11 +1,28 @@
 extends layout
 
 block content
-    h1= title
+    h1.text-center= title
+    p=req
 
-    ul
-        each req in list_solicitud
-            li
-                a(href=req.url) #{req.nombre_completo} #{req.fecha_cute}
-        else
-            li There are no petitions.
+    .table-responsive
+        table.table.table-hover
+            thead
+                tr.bg-primary.text-center.text-white
+                    th Fecha
+                    th Nombre
+                    th Apellido
+                    th Office
+                    th URL
+            tbody
+                each req in list_solicitud
+                    tr.text-center
+                        th #{req.cute_date || "N/A"}
+                        td #{req.name || "N/A"}
+                        td #{req.last_name || "N/A"}
+                        td #{req.office.name}
+                        td
+                            a(href=req.url)
+                                button.btn.btn-outline-primary.btn-sm View
+                else
+                    li There are no petitions.
+

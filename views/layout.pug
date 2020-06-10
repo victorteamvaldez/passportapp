@@ -3,18 +3,31 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css')
   body
-    div(class='container-fluid')
-      div(class='row')
-        div(class='col-sm-2')
-          block sidebar
-            ul(class='sidebar-nav')
-              li
-                a(href='/catalog') Inicio
-              li
-                a(href='/catalog/create') Crear Petición
-        div(class='col-sm-8')
-          block content
+    div.container
+      nav.navbar.navbar-expand-lg.navbar-dark.bg-primary.justify-content-between
+        a.text-white.navbar-brand(href='/catalog/') Consulado
+        button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+          span.navbar-toggler-icon
+
+        div.collapse.navbar-collapse(id="navbarNav")
+          ul.navbar-nav
+            li.nav-item.active
+              a.nav-link.active(href="/catalog/") Inicio
+                span.sr-only (current)
+            li.nav-item
+              a.nav-link(href="#") Herramientas
+            li.nav-item.dropdown
+              a.nav-link.dropdown-toggle(href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Solicitudes
+              div.dropdown-menu(id="navbarDropdownMenuLink")
+                a.dropdown-item(href="/catalog/create") Crear Solicitud
+                a.dropdown-item(href="/catalog/all") Listar Solicitudes
+      
+    div(class='container mt-5')
+      block content
+
+  block scripts
+    script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js")

@@ -1,6 +1,9 @@
 extends layout
 
 block content
-    h1 Title: #{title}
+    h3.text-center #{request.full_name}
     
-    p= solic
+    p= request
+
+    a.btn.btn-danger(href=request.url+"/delete") Delete
+    a.btn.btn-outline-danger.ml-3(href=request.url+"/update") Edit
