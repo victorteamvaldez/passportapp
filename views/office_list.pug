@@ -2,9 +2,29 @@ extends layout
 
 block content
     h1=title
-    ul
-        each req in office_list
-            li=req.name
-        else 
-            li There aren't offices defined.
+
+    if office_in_request.request
+        p(style="color: red")="*Existen solicitudes utilizando esta oficina."
+
+    if office_list
+        .table-responsive
+            table.table.table-hover
+                thead
+                    tr.bg-primary.text-center.text-white
+                        th Oficina
+                        th Opciones
+                tbody
+                    each ofi in office_list
+                        tr.text-center
+                            th #{ofi.name || "N/A"}
+                            th
+                                div(style="display: inline-flex")
+                                    div
+                                        form(action=ofi.url+'/delete', method="post")
+                                            button.mr-3.btn.btn-danger(type="submit") Delete
+                                    div
+                                        a.mr-3.btn.btn-outline-danger(href=ofi.url+'/update') Edit
+    else 
+        li There aren't offices defined.
+
     a.btn.btn-primary(href="/office/create") Create Office

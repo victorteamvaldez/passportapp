@@ -2,9 +2,29 @@ extends layout
 
 block content
     h1=title
-    ul
-        each reason in reason_list
-            li=reason.name
-        else 
-            li There aren't reasons defined.
+
+    if reason_in_request.request
+        p(style="color: red")="*Existen solicitudes utilizando esta razón."
+
+    if reason_list
+        .table-responsive
+            table.table.table-hover
+                thead
+                    tr.bg-primary.text-center.text-white
+                        th Razón
+                        th Opciones
+                tbody
+                    each rea in reason_list
+                        tr.text-center
+                            th #{rea.name || "N/A"}
+                            th
+                                div(style="display: inline-flex")
+                                    div
+                                        form(action=rea.url+'/delete', method="post")
+                                            button.mr-3.btn.btn-danger(type="submit") Delete
+                                    div
+                                        a.mr-3.btn.btn-outline-danger(href=rea.url+'/update') Edit
+    else 
+        li There aren't offices defined.
+
     a.btn.btn-primary(href="/reason/create") Create Reason

@@ -1,0 +1,5 @@
+form(method='POST' action='')
+    div.form-group
+        label(for="name") City Office Name:
+        input#name.form-control(type='text', placeholder="New York", name='name', value=(undefined===office ? '' : office.name))
+    button.btn.btn-primary(type='submit') #{undefined == office ? "Create" : undefined == office.id ? "Create" : "Update"}

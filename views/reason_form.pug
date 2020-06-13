@@ -1,0 +1,5 @@
+form(method='POST' action='')
+    div.form-group
+        label(for="name") Reason:
+        input#name.form-control(type='text', placeholder="First passport", name='name', value=(undefined===reason ? '' : reason.name))
+    button.btn.btn-primary(type='submit') #{undefined == reason ? "Create" : undefined == reason.id ? "Create" : "Update"}

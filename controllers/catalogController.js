@@ -159,7 +159,7 @@ exports.peticion_update_get = function(req, res, next){
     },function(err, results){
         if(err){return next(err);}
 
-        res.render('catalog_update',{title:'Update Request', request: results.request, offices: results.office, reasons: results.reason})
+        res.render('catalog_create',{title:'Update Request', request: results.request, offices: results.office, reasons: results.reason})
 
     });
 }

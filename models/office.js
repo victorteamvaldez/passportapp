@@ -7,4 +7,12 @@ var OfficeSchema = new Schema({
     name: {type: String, required: true}
 });
 
+OfficeSchema.
+    virtual('url').
+    get(
+        function(){
+            return '/office/'+this._id;
+        }
+    )
+
 module.exports = mongoose.model('Office', OfficeSchema);

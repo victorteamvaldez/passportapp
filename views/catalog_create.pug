@@ -3,94 +3,9 @@ extends layout
 block content
 
     h1 #{title}
-    form(method='POST' action='')
-        div.form-group
-            div.row
-                div.col-sm-6
-                    label(for='name') Name:
-                    input#name.form-control(type='text', placeholder='Your name goes here' name='name' value=(undefined===request? '' : request.name))
-                div.col-sm-6
-                    label(for='last_name') Lastname:
-                    input#lastname.form-control(type='text', placeholder='Your lastname goes here' name='last_name' value=(undefined===request ? '' : request.last_name))
-            label(for='cedula') Cedula:
-            input#cedula.form-control(type='text', placeholder='00102205451' name='cedula' value=(undefined===request ? '' : request.cedula))
-            label(for='birth_date') Date of birth:
-            input#birth_date.form-control(type='date', name='birth_date' value=(undefined===request ? '' : request.birth_date))
-            label(for='place_birth') City of birth:
-            input#place_birth.form-control(type='text', placeholder='Santiago' name='place_birth' value=(undefined===request ? '' : request.place_birth))
-            label(for='telephone') Telephone:
-            input#telephone.form-control(type='text', placeholder='3176522122' name='telephone' value=(undefined===request ? '' : request.telephone))
-            label(for='address') Address:
-            input#address.form-control(type='text', placeholder='532 Broadway Ave' name='address' value=(undefined===request ? '' : request.address))
-            div.row
-                div.col-sm-4
-                    label(for='city') City:
-                    input#city.form-control(type='text', placeholder='Bronx' name='city' value=(undefined===request ? '' : request.city))            
-                div.col-sm-4
-                    label(for='state') State:
-                    input#state.form-control(type='text', placeholder='New York' name='state' value=(undefined===request ? '' : request.state))
-                div.col-sm-4
-                    label(for='zip_code') zip_code:
-                    input#zip_code.form-control(type='text', placeholder='10032' name='zip_code' value=(undefined===request ? '' : request.zip_code))
-            div.row
-                div.col-sm-4
-                    label(for='last_passport') Last Passport Number:
-                    input#last_passport.form-control(type='text', placeholder='RD252112' name='last_passport' value=(undefined===request ? '' : request.last_passport))
-                div.col-sm-4
-                    label(for='passport_book') Passport Book Number:
-                    input#passport_book.form-control(type='text', placeholder='' name='passport_book' value=(undefined===request ? '' : request.passport_book))
-                div.col-sm-4
-                    label(for='last_passport_date') Last Passport Date:
-                    input#last_passport_date.form-control(type='date', placeholder='' name='last_passport_date' value=(undefined===request ? '' : request.last_passport_date))
-            label(for="request_type") Select Request Type:
-            select#request_type(name="request_type", required="true")
-                if request
-                    option(value="vip" selected=(request.request_type == 'vip'? "selected": false)) VIP
-                    option(value="normal" selected=(request.request_type == 'normal'? "selected": false)) Normal
-                else
-                    option(value="vip") VIP
-                    option(value="normal") Normal
-            label(for='status') Status:
-            input#status.form-control(type='text' placeholder='' name='status' value=(undefined===request ? '' : request.status))                        
-            div.row
-                div.col-sm-6
-                    label(for="office") Select an Office:
-                    select#office.form-control(placeholder='Select office' name='office' required='true')
-                        - offices.sort((a,b)=>{ return a.name > b.name ? 1: a.name < b.name ? -1:0 })
-                        for office in offices
-                            if request
-                                option(value=office._id, selected=(request.office.toString()==office._id.toString()?"selected": false)) #{office.name}
-                            else
-                                option(value=office._id) #{office.name}
-                div.col-sm-6
-                    label(for="reason") Select a Reason:
-                    select#office.form-control(placeholder='Select reason' name='reason' required='true')
-                        - offices.sort((a,b)=>{ return a.name > b.name ? 1: a.name < b.name ? -1:0 })
-                        for reason in reasons
-                            if request
-                                option(value=reason._id, selected=(request.reason.toString()==reason._id.toString()?"selected": false)) #{reason.name}
-                            else
-                                option(value=reason._id) #{reason.name}
-            div.row
-                div.col-sm-3
-                    label(for="picture_provided") Picture Provided
-                    input#picture_provided(type="checkbox" name="picture_provided" value="true" checked= (undefined === request ? false:request.picture_provided))
-                div.col-sm-3
-                    label(for="cedula_provided") Cedula Provided
-                    input#cedula_provided(type="checkbox" name="cedula_provided" value="true" checked=(undefined === request ? false: request.cedula_provided))
-                div.col-sm-3
-                    label(for="birth_certificate_provided") Birth Certificate Provided
-                    input#birth_certificate_provided(type="checkbox" name="birth_certificate_provided" value="true" checked=(undefined === request ? false: request.birth_certificate_provided))
-                div.col-sm-3
-                    label(for="last_passport_provided") Last Passport Provided
-                    input#last_passport_provided(type="checkbox" name="last_passport_provided" value="true" checked=(undefined === request ? false: request.last_passport_provided))                                                        
-            label(for='description') Description:
-            input#description.form-control(type='textfield', placeholder='Write a description for the request' name='description' value=(undefined===request ? '' : request.description))
+    include catalog_form
 
-
-        button.btn.btn-primary(type='submit') Submit
-
-        if errors
-            ul
-                for error in errors
-                    li!=error.msg
+    if errors
+        ul
+            for error in errors
+                li!=error.msg
